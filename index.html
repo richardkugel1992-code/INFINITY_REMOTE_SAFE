@@ -1,18 +1,19 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>INFINITY HISTORY NEXUS</title>
-<style>body{background:#050505;color:#0f0;font-family:monospace;text-align:center;padding:10px;}
-.l{height:50px;width:50px;border-radius:50%;display:inline-block;margin:10px;}
-.s{background:#0f0;box-shadow:0 0 15px #0f0;}.a{background:#f00;box-shadow:0 0 15px #f00;animation:b 0.5s infinite;}
-@keyframes b{0%{opacity:1;}50%{opacity:0.2;}100%{opacity:1;}}
-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:0.8em;}
-th,td{border:1px solid #333;padding:8px;text-align:left;}
-#st{border:1px solid #0f0;padding:10px;margin:10px 0;}</style></head>
-<body><h3>Infinity Global Nexus</h3><div id="i" class="l s"></div>
-<div id="st">LADE AUDIT-HISTORIE...</div>
-<button onclick="ac=new(window.AudioContext||window.webkitAudioContext)()">AUDIO ALARM AKTIVIEREN</button>
-<table id="h"><thead><tr><th>Zeitstempel</th><th>Status</th></tr></thead><tbody id="b"></tbody></table>
-<script>let ac=null;function p(){if(ac){let o=ac.createOscillator();o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.5);}}
-async function c(){const r=await fetch('https://api.github.com/repos/richardkugel1992-code/INFINITY_REMOTE_SAFE/issues?per_page=3');
-const i=await r.json();const el=document.getElementById('i');const es=document.getElementById('st');const eb=document.getElementById('b');
-if(i[0].body.includes('Stable')){el.className='l s';es.innerText='STATUS: STABLE';}else{el.className='l a';es.innerText='ALARM: DANGER';p();}
-eb.innerHTML=i.map(x=>`<tr><td>${new Date(x.created_at).toLocaleString()}</td><td>${x.title}</td></tr>`).join('');}
-setInterval(c,15000);c();</script></body></html>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>INFINITY NEXUS PUSH</title>
+<style>body{background:#050505;color:#0f0;font-family:monospace;text-align:center;padding:20px;}
+.l{height:80px;width:80px;border-radius:50%;display:inline-block;margin:20px;}
+.s{background:#0f0;box-shadow:0 0 30px #0f0;}.a{background:#f00;box-shadow:0 0 30px #f00;animation:b 0.5s infinite;}
+@keyframes b{0%{opacity:1;}50%{opacity:0.2;}100%{opacity:1;}}</style></head>
+<body><h1>Infinity Global Nexus</h1><div id="i" class="l s"></div><h2 id="t">DASHBOARD AKTIV</h2>
+<button onclick="requestPermission()">PUSH-ALARM AKTIVIEREN</button>
+<script>
+function requestPermission() { Notification.requestPermission(); ac=new(window.AudioContext||window.webkitAudioContext)(); }
+function notify(msg) { if(Notification.permission==='granted'){ new Notification('🚨 INFINITY ALARM', {body: msg}); } }
+let ac=null; function p(){if(ac){let o=ac.createOscillator();o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.5);}}
+async function c(){
+  const r=await fetch('https://api.github.com/repos/richardkugel1992-code/INFINITY_REMOTE_SAFE/issues?per_page=1');
+  const i=await r.json(); const el=document.getElementById('i'); const et=document.getElementById('t');
+  if(i[0].body.includes('Stable')){ el.className='l s'; et.innerText='STABLE'; }
+  else { el.className='l a'; et.innerText='ALERT'; p(); notify('Integritäts-Verletzung erkannt!'); }
+}
+setInterval(c,15000); c();
+</script></body></html>
