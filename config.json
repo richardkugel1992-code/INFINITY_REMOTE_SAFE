@@ -1,0 +1,5 @@
+{
+  "system_mode": "STABLE",
+  "audit_interval": "hourly",
+  "alert_level": "high"
+}

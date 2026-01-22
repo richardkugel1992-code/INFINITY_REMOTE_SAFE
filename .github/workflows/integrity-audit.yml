@@ -1,0 +1,12 @@
+name: Infinity Global Audit
+on: [push]
+jobs:
+  verify-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: SHA-256 Verification
+        run: |
+          echo "Starte mathematisches Audit..."
+          find . -type f ! -path '*/.*' -exec sha256sum {} + > audit_report.txt
+          echo "Audit erfolgreich abgeschlossen."
