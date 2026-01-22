@@ -1,16 +1,18 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><title>INFINITY BI-MODAL NEXUS</title>
-<style>body{background:#050505;color:#0f0;font-family:monospace;text-align:center;padding:15px;}
-.l{height:60px;width:60px;border-radius:50%;display:inline-block;margin:10px;}
-.s{background:#0f0;box-shadow:0 0 20px #0f0;}.a{background:#f00;box-shadow:0 0 20px #f00;animation:b 0.5s infinite;}
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>INFINITY HISTORY NEXUS</title>
+<style>body{background:#050505;color:#0f0;font-family:monospace;text-align:center;padding:10px;}
+.l{height:50px;width:50px;border-radius:50%;display:inline-block;margin:10px;}
+.s{background:#0f0;box-shadow:0 0 15px #0f0;}.a{background:#f00;box-shadow:0 0 15px #f00;animation:b 0.5s infinite;}
 @keyframes b{0%{opacity:1;}50%{opacity:0.2;}100%{opacity:1;}}
-.st{font-size:0.9em;margin:5px; border:1px solid #333; padding:5px;}</style></head>
-<body><h2>Infinity Global Nexus</h2>
-<div id="i" class="l s"></div><div id="st_c" class="st">CORE: SYNCING...</div>
-<div id="st_t" class="st">TELEGRAM: DOWN</div>
-<button onclick="ac=new(window.AudioContext||window.webkitAudioContext)()">AUDIO AKTIVIEREN</button>
+table{width:100%;border-collapse:collapse;margin-top:20px;font-size:0.8em;}
+th,td{border:1px solid #333;padding:8px;text-align:left;}
+#st{border:1px solid #0f0;padding:10px;margin:10px 0;}</style></head>
+<body><h3>Infinity Global Nexus</h3><div id="i" class="l s"></div>
+<div id="st">LADE AUDIT-HISTORIE...</div>
+<button onclick="ac=new(window.AudioContext||window.webkitAudioContext)()">AUDIO ALARM AKTIVIEREN</button>
+<table id="h"><thead><tr><th>Zeitstempel</th><th>Status</th></tr></thead><tbody id="b"></tbody></table>
 <script>let ac=null;function p(){if(ac){let o=ac.createOscillator();o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.5);}}
-async function c(){const r=await fetch('https://api.github.com/repos/richardkugel1992-code/INFINITY_REMOTE_SAFE/issues');
-const i=await r.json();const el=document.getElementById('i');const ec=document.getElementById('st_c');const et=document.getElementById('st_t');
-if(i[0].body.includes('Stable')){el.className='l s';ec.innerText='CORE: MATHEMATISCH STABLE';}else{el.className='l a';ec.innerText='CORE: ALERT!';p();}
-const tg=i.find(x=>x.title.includes('Brückenschlag'));if(tg){et.innerText='TELEGRAM: CONNECTED (UP)';et.style.color='#0f0';}else{et.innerText='TELEGRAM: DISCONNECTED (DOWN)';et.style.color='#f00';}}
+async function c(){const r=await fetch('https://api.github.com/repos/richardkugel1992-code/INFINITY_REMOTE_SAFE/issues?per_page=3');
+const i=await r.json();const el=document.getElementById('i');const es=document.getElementById('st');const eb=document.getElementById('b');
+if(i[0].body.includes('Stable')){el.className='l s';es.innerText='STATUS: STABLE';}else{el.className='l a';es.innerText='ALARM: DANGER';p();}
+eb.innerHTML=i.map(x=>`<tr><td>${new Date(x.created_at).toLocaleString()}</td><td>${x.title}</td></tr>`).join('');}
 setInterval(c,15000);c();</script></body></html>
