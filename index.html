@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="de">
-<head><meta charset="UTF-8"><title>INFINITY LIVE STATUS</title></head>
-<body style="background:#000; color:#0f0; font-family:monospace; padding:20px;">
-  <h1>INFINITY LIVE STATUS</h1>
-  <hr>
-  <p>LAST SYNC: 22.01.2026 14:47</p>
-  <p>REMOTE TARGET: CLOUD-SAFE: INFINITY_REMOTE_SAFE</p>
-  <p>ENCRYPTION: AES-256 (ACTIVE)</p>
-  <p>SYSTEM HEALTH: 100% (STABLE)</p>
-</body>
-</html>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>INFINITY NEXUS</title>
+<style>body{background:#050505;color:#0f0;font-family:monospace;text-align:center;padding:20px;}
+.l{height:80px;width:80px;border-radius:50%;display:inline-block;margin:20px;}
+.s{background:#0f0;box-shadow:0 0 30px #0f0;}.a{background:#f00;box-shadow:0 0 30px #f00;animation:b 0.5s infinite;}
+@keyframes b{0%{opacity:1;}50%{opacity:0.2;}100%{opacity:1;}}</style></head>
+<body><h1>Infinity Global Nexus</h1><div id="i" class="l s"></div><h2 id="t">SYNC...</h2>
+<button onclick="ac=new(window.AudioContext||window.webkitAudioContext)()">AUDIO AKTIVIEREN</button>
+<script>let ac=null;function p(){if(ac){let o=ac.createOscillator();o.connect(ac.destination);o.start();o.stop(ac.currentTime+0.5);}}
+async function c(){const r=await fetch('https://api.github.com/repos/richardkugel1992-code/INFINITY_REMOTE_SAFE/issues?per_page=1');
+const i=await r.json();const el=document.getElementById('i');const et=document.getElementById('t');
+if(i[0].body.includes('Stable')){el.className='l s';et.innerText='STABLE';}else{el.className='l a';et.innerText='ALERT';p();}}
+setInterval(c,15000);c();</script></body></html>
